@@ -17,7 +17,7 @@ class _QuizSummaryScreenState extends State<QuizSummaryScreen> {
   }
 
   void _restartQuiz() async {
-    await DatabaseHelper().clearAnswers();
+    await DatabaseHelper().clearAnswers();//clear previous answer in answer table
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => QuizScreen()),
@@ -42,7 +42,7 @@ class _QuizSummaryScreenState extends State<QuizSummaryScreen> {
             return const Center(child: Text('No answers found.'));
           } else {
             final answers = snapshot.data!;
-            int correctCount = answers.where((answer) => answer['selectedOption'] == answer['correctOption']).length;
+            int correctCount = answers.where((answer) => answer['selectedOption'] == answer['correctOption']).length; //get correct answer count
 
             return Column(
               children: [
@@ -52,7 +52,7 @@ class _QuizSummaryScreenState extends State<QuizSummaryScreen> {
                     itemCount: answers.length,
                     itemBuilder: (context, index) {
                       final answer = answers[index];
-                      final isCorrect = answer['selectedOption'] == answer['correctOption'];
+                      final isCorrect = answer['selectedOption'] == answer['correctOption'];//creating variable for showing color of selected answer
                       return ListTile(
                         title: Text(
                           answer['questionText'],
@@ -74,7 +74,7 @@ class _QuizSummaryScreenState extends State<QuizSummaryScreen> {
                 Center(
                   child: ElevatedButton(
                     onPressed: _restartQuiz,
-                    child: Text('Restart Quiz'),
+                    child: const Text('Restart Quiz'),
                   ),
                 ),
               ],

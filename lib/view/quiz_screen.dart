@@ -22,9 +22,9 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   Future<void> _startNewQuiz() async {
-    await DatabaseHelper().clearAnswers();
+    await DatabaseHelper().clearAnswers();//for clear previous record
     setState(() {
-      _questions = _quizDataProvider.getQuestions();
+      _questions = _quizDataProvider.getQuestions();// getting questions from data provider
       _currentQuestionIndex = 0;
       _answers.clear();
       _selectedOption = null;
@@ -55,7 +55,7 @@ class _QuizScreenState extends State<QuizScreen> {
     } else {
       // Show a message if no option is selected
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please select an answer before proceeding')),
+        const SnackBar(content: Text('Please select an answer before proceeding')),
       );
     }
   }
@@ -73,9 +73,9 @@ class _QuizScreenState extends State<QuizScreen> {
     if (_questions.isEmpty) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Quiz'),
+          title: const Text('Quiz'),
         ),
-        body: Center(
+        body: const Center(
           child: Text('No questions available.'),
         ),
       );
@@ -85,7 +85,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quiz'),
+        title: const Text('Quiz'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -93,7 +93,7 @@ class _QuizScreenState extends State<QuizScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(currentQuestion.questionText, style: TextStyle(fontSize: 18)),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ...currentQuestion.options.map((option) => ListTile(
               title: Text(option),
               leading: Radio<String>(
@@ -106,7 +106,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 },
               ),
             )),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Center(
               child: ElevatedButton(
                 onPressed: _nextQuestion,
